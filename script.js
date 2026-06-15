@@ -9,9 +9,12 @@ const tfootS = document.getElementById("tfoot-s");
 
 function calc() {
   const rate = parseFloat(rateInput.value) || 0;
-  const raw = textarea.value.trim().replace(/[\n,;]+/g, " ");
+  const raw = textarea.value
+    .trim()
+    .replace(/[\n ;]+/g, ",")
+    .replace(/,+/g, ",");
   const nums = raw
-    .split(/\s+/)
+    .split(",")
     .filter(Boolean)
     .map(Number)
     .filter((n) => !isNaN(n) && n > 0);
