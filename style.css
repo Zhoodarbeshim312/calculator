@@ -4,6 +4,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
 }
 
 :root {
@@ -23,13 +24,16 @@ body {
   font-family: "Inter", system-ui, sans-serif;
   background: var(--bg);
   min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  padding: 48px 16px 60px;
+  padding: max(48px, env(safe-area-inset-top, 48px))
+    max(16px, env(safe-area-inset-right, 16px))
+    max(60px, env(safe-area-inset-bottom, 60px))
+    max(16px, env(safe-area-inset-left, 16px));
 }
 
-/* ── card ── */
 .card {
   width: 100%;
   max-width: 500px;
@@ -89,7 +93,7 @@ body {
 }
 
 h1 {
-  font-size: clamp(26px, 6vw, 34px);
+  font-size: clamp(24px, 6vw, 34px);
   font-weight: 800;
   color: var(--text);
   letter-spacing: -1px;
@@ -145,13 +149,14 @@ h1 span {
   border: 1px solid var(--border);
   border-radius: 10px;
   padding: 8px 10px;
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 700;
   color: var(--text);
   text-align: center;
   outline: none;
   font-family: "Inter", sans-serif;
   transition: border-color 0.2s;
+  -webkit-appearance: none;
 }
 
 .rate-right input:focus {
@@ -186,8 +191,8 @@ textarea {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 16px;
-  font-size: clamp(17px, 4vw, 20px);
-  font-family: "Inter", monospace;
+  font-size: 16px;
+  font-family: "Inter", sans-serif;
   font-weight: 600;
   color: var(--text);
   resize: none;
@@ -197,6 +202,7 @@ textarea {
     border-color 0.25s,
     box-shadow 0.25s;
   line-height: 1.6;
+  -webkit-appearance: none;
 }
 
 textarea:focus {
@@ -258,7 +264,7 @@ textarea::placeholder {
 }
 
 .metric-value {
-  font-size: clamp(16px, 4vw, 20px);
+  font-size: clamp(15px, 3.5vw, 20px);
   font-weight: 800;
   color: var(--text);
   letter-spacing: -0.5px;
@@ -269,7 +275,7 @@ textarea::placeholder {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  font-size: clamp(18px, 5vw, 24px);
+  font-size: clamp(16px, 4vw, 24px);
 }
 
 /* ── table ── */
@@ -379,11 +385,7 @@ tfoot td:last-child {
 
 /* ── responsive ── */
 @media (max-width: 360px) {
-  body {
-    padding: 24px 12px 48px;
-  }
   .metrics {
-    grid-template-columns: repeat(3, 1fr);
     gap: 7px;
   }
   .metric {
@@ -404,19 +406,41 @@ tfoot td:last-child {
 }
 
 @media (max-width: 280px) {
-  body {
-    padding: 20px 10px 40px;
-  }
   .metrics {
     grid-template-columns: 1fr 1fr;
   }
-  .metric:last-child {
+  .metric:nth-child(2) {
     grid-column: span 2;
   }
   h1 {
-    font-size: 22px;
+    font-size: 20px;
   }
-  textarea {
-    font-size: 15px;
+  .rate-box {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 250px) {
+  h1 {
+    font-size: 18px;
+    letter-spacing: -0.5px;
+  }
+  .badge {
+    font-size: 10px;
+  }
+  .metrics {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+  .metric:nth-child(2) {
+    grid-column: span 1;
+  }
+  thead th,
+  tbody td,
+  tfoot td {
+    padding: 8px 10px;
+    font-size: 12px;
   }
 }
